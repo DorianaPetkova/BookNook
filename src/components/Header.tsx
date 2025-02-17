@@ -1,17 +1,8 @@
+import { Sign } from "crypto";
 import GenreDropDown from "./GenreDropDown";
 import SearchInput from "./SearchInput";
 import ThemeToggler from "./ThemeToggler";
 
-import {
-    Drawer,
-    DrawerClose,
-    DrawerContent,
-    DrawerDescription,
-    DrawerFooter,
-    DrawerHeader,
-    DrawerTitle,
-    DrawerTrigger,
-  } from "@/components/ui/drawer"
 const Header = () => {
     return (
         <div>
@@ -19,10 +10,8 @@ const Header = () => {
           <SearchInput/>
            <GenreDropDown/>
            <ThemeToggler/>
-           
         </div>
-
-        
+      
     );
 };
 
