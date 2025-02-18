@@ -18,7 +18,10 @@ const Navbar = () => {
         <div className="flex gap-10">
           <Link href="/dashboard">
             <li>Dashboard</li>
+            
           </Link>
+          <GenreDropDown/>
+          <ThemeToggler/>
           {!session ? (
             <>
               <Link href="/login">
@@ -27,9 +30,8 @@ const Navbar = () => {
               <Link href="/register">
                 <li>Register</li>
               </Link>
-               <SearchInput/>
-           <GenreDropDown/>
-           <ThemeToggler/>
+               
+          
             </>
           ) : (
             <>

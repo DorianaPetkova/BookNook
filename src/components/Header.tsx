@@ -3,6 +3,7 @@ import GenreDropDown from "./GenreDropDown";
 import SearchInput from "./SearchInput";
 import ThemeToggler from "./ThemeToggler";
 
+
 const Header = () => {
     return (
         <div>
