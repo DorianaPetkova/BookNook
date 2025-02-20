@@ -1,20 +1,30 @@
-"use client"
+"use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
+
 const BooksPage = () => {
     const [books, setBooks] = useState<any[]>([]);
-    const [selectedBook, setSelectedBook] = useState<any>(null);  // For storing selected book for modals
+    const [selectedBook, setSelectedBook] = useState<any>(null);
     const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('');
     const [description, setDescription] = useState('');
     const [pageCount, setPageCount] = useState(0);
     const [genres, setGenres] = useState<string[]>([]);
-
-    // Fetch books from the API on component mount
+    const [epubUrl, setEpubUrl] = useState('');
+    const [coverImageUrl, setCoverImageUrl] = useState('');
+    const [publishDate, setPublishDate] = useState('');
+    const [language, setLanguage] = useState('en');
+    const ADMIN_ID = process.env.ADMIN_ID; 
+    const [addedByUserId, setAddedByUserId] = useState<string>("");
+    
     useEffect(() => {
+
+        setAddedByUserId(process.env.NEXT_PUBLIC_MASTER_ADMIN_ID || "");
+
         const fetchBooks = async () => {
             const res = await fetch("/api/books");
             const data = await res.json();
@@ -42,6 +52,18 @@ const BooksPage = () => {
     const closeModal = () => {
         setIsDetailsModalOpen(false);
         setIsEditModalOpen(false);
+    };
+    const openAddModal = () => {
+        setTitle('');
+        setAuthor('');
+        setDescription('');
+        setPageCount(0);
+        setGenres([]);
+        setEpubUrl('');
+        setCoverImageUrl('');
+        setPublishDate('');
+        setLanguage('en');
+        setIsAddModalOpen(true);
     };
 
     const handleEditSubmit = async (e: React.FormEvent) => {
@@ -74,12 +96,63 @@ const BooksPage = () => {
         }
     };
 
+
+    const handleAddSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+    
+        const newBookData = {
+            title,
+            author,
+            description,
+            pageCount,
+            genres,
+            epubUrl,
+            coverImageUrl,
+            publishDate,
+            language,
+            addedByUserId, // Securely fetched from .env
+        };
+    
+        try {
+            const res = await fetch("/api/books", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(newBookData),
+            });
+    
+            const data = await res.json();
+    
+            if (res.ok) {
+                alert("Book added successfully!");
+                setIsAddModalOpen(false);
+                setBooks([...books, data.book]); 
+            } else {
+                alert("Failed to add book: " + (data.error || "Unknown error"));
+            }
+        } catch (error) {
+            console.error("❌ Error adding book:", error);
+            alert("An unexpected error occurred.");
+        }
+    };
+    
+
+    const handleDelete = async (id: string) => {
+        if (!confirm("Are you sure you want to delete this book?")) return;
+
+        const res = await fetch(`/api/books?id=${id}`, { method: 'DELETE' });
+
+        if (res.ok) {
+            alert('Book deleted successfully!');
+            setBooks(books.filter(book => book._id !== id));
+        } else {
+            alert('Failed to delete book');
+        }
+    };
+
     return (
         <div>
             <h1>Books List</h1>
-            <button>
-                <Link href="/books/add">Add New Book</Link>
-            </button>
+            <button onClick={openAddModal}>Add New Book</button>
 
             <table>
                 <thead>
@@ -95,20 +168,16 @@ const BooksPage = () => {
                             <td>{book.title}</td>
                             <td>{book.author}</td>
                             <td>
-                                <button onClick={() => openDetailsModal(book)}>
-                                    View Details
-                                </button>
-                                <button onClick={() => openEditModal(book)}>
-                                    Edit
-                                </button>
+                                <button onClick={() => openDetailsModal(book)}>View Details</button>
+                                <button onClick={() => openEditModal(book)}>Edit</button>
+                                <button onClick={() => handleDelete(book._id)} style={{ backgroundColor: "red", color: "white" }}>Delete</button>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
-
-            {/* Book Details Modal */}
-            {isDetailsModalOpen && (
+              {/* Book Details Modal */}
+              {isDetailsModalOpen && (
                 <div className="modal">
                     <div className="modal-content">
                         <h2>{selectedBook?.title}</h2>
@@ -174,6 +243,39 @@ const BooksPage = () => {
                     </div>
                 </div>
             )}
+       
+       
+
+{/* Add Book Modal */}
+{isAddModalOpen && (
+    <div className="modal">
+        <div className="modal-content">
+            <h2>Add New Book</h2>
+            <form onSubmit={handleAddSubmit}>
+                <label>Title:</label>
+                <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
+                <label>Author:</label>
+                <input type="text" value={author} onChange={(e) => setAuthor(e.target.value)} required />
+                <label>Description:</label>
+                <textarea value={description} onChange={(e) => setDescription(e.target.value)} required />
+                <label>Page Count:</label>
+                <input type="number" value={pageCount} onChange={(e) => setPageCount(Number(e.target.value))} required />
+                <label>Genres (comma-separated):</label>
+                <input type="text" value={genres.join(", ")} onChange={(e) => setGenres(e.target.value.split(",").map(g => g.trim()))} required />
+                <label>Epub URL:</label>
+                <input type="text" value={epubUrl} onChange={(e) => setEpubUrl(e.target.value)} required />
+                <label>Cover Image URL:</label>
+                <input type="text" value={coverImageUrl} onChange={(e) => setCoverImageUrl(e.target.value)} />
+                <label>Publish Date:</label>
+                <input type="date" value={publishDate} onChange={(e) => setPublishDate(e.target.value)} required />
+                <label>Language:</label>
+                <input type="text" value={language} onChange={(e) => setLanguage(e.target.value)} required />
+                <button type="submit">Add Book</button>
+            </form>
+            <button onClick={() => setIsAddModalOpen(false)}>Cancel</button>
+        </div>
+    </div>
+)}
         </div>
     );
 };

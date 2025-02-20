@@ -20,6 +20,9 @@ const Navbar = () => {
             <li>Dashboard</li>
             
           </Link>
+          <Link href="/crud">
+                <li>Crud</li>
+              </Link>
           <GenreDropDown/>
           <ThemeToggler/>
           {!session ? (

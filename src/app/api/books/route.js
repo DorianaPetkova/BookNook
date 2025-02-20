@@ -5,11 +5,21 @@ import { NextResponse } from "next/server";
 export async function POST(request) {
     try {
         const body = await request.json();
-        console.log("📦 Incoming Data:", body);
+        await connectMongoDB();
 
-        await connectMongoDB();       
-        const newBook = await Books.create(body);
-        console.log("✅ Book Created:", newBook);
+        const MASTER_ADMIN_ID = process.env.NEXT_PUBLIC_MASTER_ADMIN_ID; 
+        if (!MASTER_ADMIN_ID) {
+            throw new Error("MASTER_ADMIN_ID is not set in .env file");
+           
+
+        }
+
+        // Always use the master admin ID
+        const newBook = await Books.create({
+            ...body,
+            addedByUserId: MASTER_ADMIN_ID,  // Ensure MASTER_ADMIN_ID is defined
+        });
+        
 
         return NextResponse.json({ message: "Book added", book: newBook }, { status: 201 });
     } catch (error) {
@@ -24,8 +34,8 @@ export async function GET() {
         const books = await Books.find();
         return NextResponse.json({ books });
     } catch (error) {
-        console.error("Error retrieving tasks:", error);
-        return NextResponse.json({ error: "Failed to retrieve tasks" }, { status: 500 });
+        console.error("Error retrieving users:", error);
+        return NextResponse.json({ error: "Failed to retrieve users" }, { status: 500 });
     }
 }
 
