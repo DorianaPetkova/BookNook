@@ -113,9 +113,9 @@ const UsersPage = () => {
     };
 
     return (
-        <div>
-            <h1>Users List</h1>
-            <button onClick={openAddModal}>Add New User</button>
+        <div className="container-table">
+            <h1 className="books-table">Users List <button className="btn-crud" onClick={openAddModal}>Add New User</button></h1>
+            
 
             <table>
                 <thead>
@@ -129,9 +129,9 @@ const UsersPage = () => {
                         <tr key={user._id}>
                             <td>{user.email}</td>
                             <td>
-                                <button onClick={() => openDetailsModal(user)}>View Details</button>
-                                <button onClick={() => openEditModal(user)}>Edit</button>
-                                <button onClick={() => handleDelete(user._id)} style={{ backgroundColor: "red", color: "white" }}>Delete</button>
+                                <button className="btn-edit-details-del" onClick={() => openDetailsModal(user)}>Details</button>
+                                <button className="btn-edit-details-del" onClick={() => openEditModal(user)}>Edit</button>
+                                <button className="btn-edit-details-del" onClick={() => handleDelete(user._id)} style={{ backgroundColor: "red", color: "white" }}>Delete</button>
                             </td>
                         </tr>
                     ))}
@@ -144,7 +144,7 @@ const UsersPage = () => {
                     <div className="modal-content">
                         <h2>User Details</h2>
                         <p><strong>Email:</strong> {selectedUser?.email}</p>
-                        <button onClick={closeModal}>Close</button>
+                        <button className="btn-del" onClick={closeModal}>Close</button>
                     </div>
                 </div>
             )}
@@ -172,9 +172,9 @@ const UsersPage = () => {
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
                             </div>
-                            <button type="submit">Update User</button>
+                            <button className="btn-del" type="submit">Update User</button>
                         </form>
-                        <button onClick={closeModal}>Cancel</button>
+                        <button className="btn-del" onClick={closeModal}>Cancel</button>
                     </div>
                 </div>
             )}
@@ -189,9 +189,9 @@ const UsersPage = () => {
                             <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
                             <label>Password:</label>
                             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-                            <button type="submit">Add User</button>
+                            <button className="btn-del" type="submit">Add User</button>
                         </form>
-                        <button onClick={() => setIsAddModalOpen(false)}>Cancel</button>
+                        <button className="btn-del" onClick={() => setIsAddModalOpen(false)}>Cancel</button>
                     </div>
                 </div>
             )}

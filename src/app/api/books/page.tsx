@@ -150,11 +150,11 @@ const BooksPage = () => {
     };
 
     return (
-        <div>
-            <h1>Books List</h1>
-            <button onClick={openAddModal}>Add New Book</button>
+        <div className="container-table">
+            <h1 className="books-table">Books List <button className="btn-crud" onClick={openAddModal}>Add New User</button></h1>
+            
 
-            <table>
+            <table className='table'>
                 <thead>
                     <tr>
                         <th>Title</th>
@@ -168,9 +168,9 @@ const BooksPage = () => {
                             <td>{book.title}</td>
                             <td>{book.author}</td>
                             <td>
-                                <button onClick={() => openDetailsModal(book)}>View Details</button>
-                                <button onClick={() => openEditModal(book)}>Edit</button>
-                                <button onClick={() => handleDelete(book._id)} style={{ backgroundColor: "red", color: "white" }}>Delete</button>
+                                <button className="btn-edit-details-del" onClick={() => openDetailsModal(book)}>Details</button>
+                                <button className="btn-edit-details-del" onClick={() => openEditModal(book)}>Edit</button>
+                                <button className="btn-edit-details-del" onClick={() => handleDelete(book._id)} style={{ backgroundColor: "red", color: "white" }}>Delete</button>
                             </td>
                         </tr>
                     ))}
@@ -187,7 +187,7 @@ const BooksPage = () => {
                         <p><strong>Genres:</strong> {selectedBook?.genres.join(", ")}</p>
                         <p><strong>Language:</strong> {selectedBook?.language}</p>
 
-                        <button onClick={closeModal}>Close</button>
+                        <button className="btn-del" onClick={closeModal}>Close</button>
                     </div>
                 </div>
             )}
@@ -196,7 +196,7 @@ const BooksPage = () => {
             {isEditModalOpen && (
                 <div className="modal">
                     <div className="modal-content">
-                        <h2>Edit Book</h2>
+                        <h2>Edit</h2>
                         <form onSubmit={handleEditSubmit}>
                             <div>
                                 <label>Title:</label>
@@ -237,9 +237,9 @@ const BooksPage = () => {
                                     onChange={(e) => setGenres(e.target.value.split(",").map((genre) => genre.trim()))}
                                 />
                             </div>
-                            <button type="submit">Update Book</button>
+                            <button className="btn-del" type="submit">Update</button>
                         </form>
-                        <button onClick={closeModal}>Cancel</button>
+                        <button className="btn-del" onClick={closeModal}>Cancel</button>
                     </div>
                 </div>
             )}
@@ -253,26 +253,27 @@ const BooksPage = () => {
             <h2>Add New Book</h2>
             <form onSubmit={handleAddSubmit}>
                 <label>Title:</label>
-                <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
+                <input className="pole-input" type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
+                <br/>
                 <label>Author:</label>
-                <input type="text" value={author} onChange={(e) => setAuthor(e.target.value)} required />
-                <label>Description:</label>
+                <input className="pole-input" type="text" value={author} onChange={(e) => setAuthor(e.target.value)} required />
+                <br/><label>Description:</label>
                 <textarea value={description} onChange={(e) => setDescription(e.target.value)} required />
-                <label>Page Count:</label>
-                <input type="number" value={pageCount} onChange={(e) => setPageCount(Number(e.target.value))} required />
-                <label>Genres (comma-separated):</label>
-                <input type="text" value={genres.join(", ")} onChange={(e) => setGenres(e.target.value.split(",").map(g => g.trim()))} required />
-                <label>Epub URL:</label>
-                <input type="text" value={epubUrl} onChange={(e) => setEpubUrl(e.target.value)} required />
-                <label>Cover Image URL:</label>
-                <input type="text" value={coverImageUrl} onChange={(e) => setCoverImageUrl(e.target.value)} />
-                <label>Publish Date:</label>
-                <input type="date" value={publishDate} onChange={(e) => setPublishDate(e.target.value)} required />
-                <label>Language:</label>
-                <input type="text" value={language} onChange={(e) => setLanguage(e.target.value)} required />
-                <button type="submit">Add Book</button>
+                <br/><label>Page Count:</label>
+                <input className="pole-input" type="number" value={pageCount} onChange={(e) => setPageCount(Number(e.target.value))} required />
+                <br/><label>Genres (comma-separated):</label>
+                <input className="pole-input" type="text" value={genres.join(", ")} onChange={(e) => setGenres(e.target.value.split(",").map(g => g.trim()))} required />
+                <br/><label>Epub URL:</label>
+                <input className="pole-input" type="text" value={epubUrl} onChange={(e) => setEpubUrl(e.target.value)} required />
+                <br/><label>Cover Image URL:</label>
+                <input className="pole-input" type="text" value={coverImageUrl} onChange={(e) => setCoverImageUrl(e.target.value)} />
+                <br/><label>Publish Date:</label>
+                <input className="pole-input" type="date" value={publishDate} onChange={(e) => setPublishDate(e.target.value)} required />
+                <br/><label>Language:</label>
+                <input className="pole-input" type="text" value={language} onChange={(e) => setLanguage(e.target.value)} required />
+                <button className="btn-del" type="submit">Add Book</button>
             </form>
-            <button onClick={() => setIsAddModalOpen(false)}>Cancel</button>
+            <button className="btn-del" onClick={() => setIsAddModalOpen(false)}>Cancel</button>
         </div>
     </div>
 )}

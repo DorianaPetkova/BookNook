@@ -13,12 +13,12 @@ const EPUBReader = () => {
   }, [largeText]);
 
   return (
-    <div className="w-full h-[80vh]">
+    <div className="duh">
       <button
         onClick={() => setLargeText(!largeText)}
-        className="mb-4 p-2 bg-blue-500 text-white rounded"
+        className="toggle"
       >
-        Toggle Font Size
+        Toggle
       </button>
       <ReactReader
         url="/epubs/alice.epub"

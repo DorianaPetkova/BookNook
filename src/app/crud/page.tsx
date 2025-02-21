@@ -27,8 +27,8 @@ export default function Home() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1>CRUD</h1>
+    <main className="tables-crud">
+      <h1 >CRUD</h1>
       <BooksPage />
       <UsersPage />
     </main>
