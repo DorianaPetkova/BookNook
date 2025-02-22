@@ -28,7 +28,7 @@ const UsersPage = () => {
     const openEditModal = (user: any) => {
         setSelectedUser(user);
         setEmail(user.email);
-        setPassword(''); // Don't pre-fill password for security
+        setPassword(''); 
         setIsEditModalOpen(true);
     };
 
@@ -48,7 +48,7 @@ const UsersPage = () => {
 
         const updatedUserData = {
             email,
-            password: password || undefined, // Only update password if it's provided
+            password: password || undefined, 
         };
 
         const res = await fetch(`/api/users/${selectedUser._id}`, {
@@ -94,7 +94,7 @@ const UsersPage = () => {
                 alert("Failed to add user: " + (data.error || "Unknown error"));
             }
         } catch (error) {
-            console.error("❌ Error adding user:", error);
+            console.error("Error adding user:", error);
             alert("An unexpected error occurred.");
         }
     };
@@ -131,7 +131,7 @@ const UsersPage = () => {
                             <td>
                                 <button className="btn-edit-details-del" onClick={() => openDetailsModal(user)}>Details</button>
                                 <button className="btn-edit-details-del" onClick={() => openEditModal(user)}>Edit</button>
-                                <button className="btn-edit-details-del" onClick={() => handleDelete(user._id)} style={{ backgroundColor: "red", color: "white" }}>Delete</button>
+                                <button className="btn-edit-details-del" onClick={() => handleDelete(user._id)} style={{ backgroundColor: "#4B4B4", border: "2px solid #FF3A3A", color: "white" }}>Delete</button>
                             </td>
                         </tr>
                     ))}
@@ -142,9 +142,9 @@ const UsersPage = () => {
             {isDetailsModalOpen && (
                 <div className="modal">
                     <div className="modal-content">
-                        <h2>User Details</h2>
-                        <p><strong>Email:</strong> {selectedUser?.email}</p>
-                        <button className="btn-del" onClick={closeModal}>Close</button>
+                        <h2><b>User Details</b></h2>
+                        <p className=""><strong>Email:</strong> {selectedUser?.email}</p>
+                        <button className="btn-del-1" onClick={closeModal}>Close</button>
                     </div>
                 </div>
             )}
@@ -153,11 +153,11 @@ const UsersPage = () => {
             {isEditModalOpen && (
                 <div className="modal">
                     <div className="modal-content">
-                        <h2>Edit User</h2>
+                        <h2><b>Edit User</b></h2>
                         <form onSubmit={handleEditSubmit}>
                             <div>
                                 <label>Email:</label>
-                                <input
+                                <input className="pole-input"
                                     type="email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
@@ -166,15 +166,15 @@ const UsersPage = () => {
                             </div>
                             <div>
                                 <label>New Password (leave blank to keep current password):</label>
-                                <input
+                                <input className="pole-input"
                                     type="password"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
                             </div>
-                            <button className="btn-del" type="submit">Update User</button>
+                            <button className="btn-add-crud-1" type="submit">Update User</button>
                         </form>
-                        <button className="btn-del" onClick={closeModal}>Cancel</button>
+                        <button className="btn-del-1" onClick={closeModal}>Cancel</button>
                     </div>
                 </div>
             )}
@@ -189,9 +189,9 @@ const UsersPage = () => {
                             <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
                             <label>Password:</label>
                             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-                            <button className="btn-del" type="submit">Add User</button>
+                            <button className="btn-add-crud-1" type="submit">Add User</button>
                         </form>
-                        <button className="btn-del" onClick={() => setIsAddModalOpen(false)}>Cancel</button>
+                        <button className="btn-del-1" onClick={() => setIsAddModalOpen(false)}>Cancel</button>
                     </div>
                 </div>
             )}

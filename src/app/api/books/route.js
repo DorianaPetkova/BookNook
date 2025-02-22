@@ -41,35 +41,35 @@ export async function GET() {
 
 export async function DELETE(request) {
     try {
-        // 1️⃣ Validate the ID
+        // id
         const id = request.nextUrl.searchParams.get("id");
         if (!id) {
             console.error("Missing 'id' parameter in request URL.");
             return NextResponse.json({ error: "Missing 'id' parameter" }, { status: 400 });
         }
 
-        // 2️⃣ Connect to DB
+        
         await connectMongoDB();
 
-        // 3️⃣ Check if the Book Exists
+        // book exist
         const book = await Books.findById(id);
         if (!book) {
             console.warn(`No book found with ID: ${id}`);
             return NextResponse.json({ error: `Book with ID ${id} not found` }, { status: 404 });
         }
 
-        // 4️⃣ Attempt Deletion
+        // delete
         const deletedBook = await Books.findByIdAndDelete(id);
         if (!deletedBook) {
             console.error(`Failed to delete book with ID: ${id}`);
             return NextResponse.json({ error: `Failed to delete book with ID: ${id}` }, { status: 500 });
         }
 
-        // 5️⃣ Success Response
+        
         console.log(`Book deleted successfully: ${id}`);
         return NextResponse.json({ message: `Book with ID ${id} deleted successfully` }, { status: 200 });
     } catch (error) {
-        // 6️⃣ Detailed Error Handling
+        
         console.error("Error deleting book:", error.message, error.stack);
         return NextResponse.json({ 
             error: `Failed to delete book: ${error.message}` 

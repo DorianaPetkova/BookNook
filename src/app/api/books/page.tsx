@@ -88,8 +88,7 @@ const BooksPage = () => {
         const data = await res.json();
         if (res.ok) {
             alert('Book updated successfully!');
-            closeModal();  // Close modal after successful update
-            // Optionally, refetch the books list after updating
+            closeModal();  
             setBooks(books.map(book => book._id === selectedBook._id ? data.updatedBook : book));
         } else {
             alert(data.error);
@@ -110,7 +109,7 @@ const BooksPage = () => {
             coverImageUrl,
             publishDate,
             language,
-            addedByUserId, // Securely fetched from .env
+            addedByUserId, 
         };
     
         try {
@@ -130,7 +129,7 @@ const BooksPage = () => {
                 alert("Failed to add book: " + (data.error || "Unknown error"));
             }
         } catch (error) {
-            console.error("❌ Error adding book:", error);
+            console.error("Error adding book:", error);
             alert("An unexpected error occurred.");
         }
     };
@@ -151,7 +150,7 @@ const BooksPage = () => {
 
     return (
         <div className="container-table">
-            <h1 className="books-table">Books List <button className="btn-crud" onClick={openAddModal}>Add New User</button></h1>
+            <h1 className="books-table">Books List <button className="btn-crud" onClick={openAddModal}>Add New Book</button></h1>
             
 
             <table className='table'>
@@ -170,7 +169,7 @@ const BooksPage = () => {
                             <td>
                                 <button className="btn-edit-details-del" onClick={() => openDetailsModal(book)}>Details</button>
                                 <button className="btn-edit-details-del" onClick={() => openEditModal(book)}>Edit</button>
-                                <button className="btn-edit-details-del" onClick={() => handleDelete(book._id)} style={{ backgroundColor: "red", color: "white" }}>Delete</button>
+                                <button className="btn-edit-details-del" onClick={() => handleDelete(book._id)} style={{ backgroundColor: "#4B4B4C", border: "3px solid #FF3A3A", color: "white" }}>Delete</button>
                             </td>
                         </tr>
                     ))}
@@ -187,7 +186,7 @@ const BooksPage = () => {
                         <p><strong>Genres:</strong> {selectedBook?.genres.join(", ")}</p>
                         <p><strong>Language:</strong> {selectedBook?.language}</p>
 
-                        <button className="btn-del" onClick={closeModal}>Close</button>
+                        <button className="btn-del-1" onClick={closeModal}>Close</button>
                     </div>
                 </div>
             )}
@@ -196,11 +195,11 @@ const BooksPage = () => {
             {isEditModalOpen && (
                 <div className="modal">
                     <div className="modal-content">
-                        <h2>Edit</h2>
+                        <h2><b>Edit</b></h2>
                         <form onSubmit={handleEditSubmit}>
                             <div>
                                 <label>Title:</label>
-                                <input
+                                <input className="pole-input"
                                     type="text"
                                     value={title}
                                     onChange={(e) => setTitle(e.target.value)}
@@ -208,7 +207,7 @@ const BooksPage = () => {
                             </div>
                             <div>
                                 <label>Author:</label>
-                                <input
+                                <input className="pole-input"
                                     type="text"
                                     value={author}
                                     onChange={(e) => setAuthor(e.target.value)}
@@ -216,14 +215,14 @@ const BooksPage = () => {
                             </div>
                             <div>
                                 <label>Description:</label>
-                                <textarea
+                                <textarea className="pole-input"
                                     value={description}
                                     onChange={(e) => setDescription(e.target.value)}
                                 />
                             </div>
                             <div>
                                 <label>Page Count:</label>
-                                <input
+                                <input className="pole-input"
                                     type="number"
                                     value={pageCount}
                                     onChange={(e) => setPageCount(Number(e.target.value))}
@@ -231,15 +230,15 @@ const BooksPage = () => {
                             </div>
                             <div>
                                 <label>Genres:</label>
-                                <input
+                                <input className="pole-input"
                                     type="text"
                                     value={genres.join(", ")}
                                     onChange={(e) => setGenres(e.target.value.split(",").map((genre) => genre.trim()))}
                                 />
                             </div>
-                            <button className="btn-del" type="submit">Update</button>
+                            <button className="btn-add-crud-1" type="submit">Update</button>
                         </form>
-                        <button className="btn-del" onClick={closeModal}>Cancel</button>
+                        <button className="btn-del-1" onClick={closeModal}>Cancel</button>
                     </div>
                 </div>
             )}
@@ -271,9 +270,9 @@ const BooksPage = () => {
                 <input className="pole-input" type="date" value={publishDate} onChange={(e) => setPublishDate(e.target.value)} required />
                 <br/><label>Language:</label>
                 <input className="pole-input" type="text" value={language} onChange={(e) => setLanguage(e.target.value)} required />
-                <button className="btn-del" type="submit">Add Book</button>
+                <button className="btn-add-crud-1" type="submit">Add Book</button>
             </form>
-            <button className="btn-del" onClick={() => setIsAddModalOpen(false)}>Cancel</button>
+            <button className="btn-del-1" onClick={() => setIsAddModalOpen(false)}>Cancel</button>
         </div>
     </div>
 )}

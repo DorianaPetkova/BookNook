@@ -30,6 +30,26 @@ const EPUBReader = () => {
           r.themes.fontSize(largeText ? "140%" : "100%");
         }}
       />
+      <ReactReader
+        url="/epubs/crimeandpunishment.epub"
+        title="Crime and Punishment"
+        location={location}
+        locationChanged={setLocation}
+        getRendition={(r) => {
+          rendition.current = r;
+          r.themes.fontSize(largeText ? "140%" : "100%");
+        }}
+      />
+       <ReactReader
+        url="/epubs/doriangray.epub"
+        title="The Picture of Dorian Gray"
+        location={location}
+        locationChanged={setLocation}
+        getRendition={(r) => {
+          rendition.current = r;
+          r.themes.fontSize(largeText ? "140%" : "100%");
+        }}
+      />
     </div>
   );
 };

@@ -24,7 +24,7 @@ import {
   const GenreDropDown = () => {
     return <DropdownMenu>
       <DropdownMenuTrigger>
-        Genre <ChevronDown/>
+        Genre 
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuLabel>Select a Genre</DropdownMenuLabel>
