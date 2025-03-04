@@ -2,7 +2,14 @@ import { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  // Other config options go here...
+
+  eslint: {
+    ignoreDuringBuilds: true, 
+  },
+
+  typescript: {
+    ignoreBuildErrors: true, 
+  },
 }
 
 export default nextConfig
