@@ -1,7 +1,7 @@
 'use client'
 import Image from "next/image";
-import BooksPage from "../api/books/page";
-import UsersPage from "../api/users/page";
+import BooksPage from "../books/page";
+import UsersPage from "../users/page";
 import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
