@@ -7,7 +7,7 @@ import User from "@/models/User";
 import connect from "@/utils/db";
 
 export const authOptions: any = {
-  // Configure one or more authentication providers
+
   providers: [
     CredentialsProvider({
       id: "credentials",
@@ -38,7 +38,7 @@ export const authOptions: any = {
       clientId: process.env.GITHUB_ID ?? "",
       clientSecret: process.env.GITHUB_SECRET ?? "",
     }),
-    // ...add more providers here
+    
   ],
   callbacks: {
     async signIn({ user, account }: { user: AuthUser; account: Account }) {
