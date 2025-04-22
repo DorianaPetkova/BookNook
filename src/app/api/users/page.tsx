@@ -61,7 +61,7 @@ const UsersPage = () => {
 
         const data = await res.json();
         if (res.ok) {
-            alert('User updated successfully!');
+            alert('Успешна операция!');
             closeModal();
             setUsers(users.map(user => user._id === selectedUser._id ? data.updatedUser : user));
         } else {
@@ -87,41 +87,41 @@ const UsersPage = () => {
             const data = await res.json();
 
             if (res.ok) {
-                alert("User added successfully!");
+                alert("Успешна операция!");
                 setIsAddModalOpen(false);
                 setUsers([...users, data.user]); 
             } else {
-                alert("Failed to add user: " + (data.error || "Unknown error"));
+                alert("Грешка " + (data.error || "Unknown error"));
             }
         } catch (error) {
-            console.error("Error adding user:", error);
-            alert("An unexpected error occurred.");
+            console.error("Грешка", error);
+            alert("Грешка");
         }
     };
 
     const handleDelete = async (id: string) => {
-        if (!confirm("Are you sure you want to delete this user?")) return;
+        if (!confirm("Сигурни ли сте, че искате да премахнете потребителя?")) return;
 
         const res = await fetch(`/api/users?id=${id}`, { method: 'DELETE' });
 
         if (res.ok) {
-            alert('User deleted successfully!');
+            alert('Успешна операция!');
             setUsers(users.filter(user => user._id !== id));
         } else {
-            alert('Failed to delete user');
+            alert('Грешка');
         }
     };
 
     return (
         <div className="container-table">
-            <h1 className="books-table">Users List <button className="btn-crud" onClick={openAddModal}>Add New User</button></h1>
+            <h1 className="books-table">Потребители <button className="btn-crud" onClick={openAddModal}>Добави читател</button></h1>
             
 
             <table>
                 <thead>
                     <tr>
-                        <th>Email</th>
-                        <th>Actions</th>
+                        <th>Имейл</th>
+                        <th>Опции</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -129,9 +129,9 @@ const UsersPage = () => {
                         <tr key={user._id}>
                             <td>{user.email}</td>
                             <td>
-                                <button className="btn-edit-details-del" onClick={() => openDetailsModal(user)}>Details</button>
-                                <button className="btn-edit-details-del" onClick={() => openEditModal(user)}>Edit</button>
-                                <button className="btn-edit-details-del" onClick={() => handleDelete(user._id)} style={{ backgroundColor: "#4B4B4", border: "2px solid #FF3A3A", color: "white" }}>Delete</button>
+                                <button className="btn-edit-details-del" onClick={() => openDetailsModal(user)}>Детайли</button>
+                                <button className="btn-edit-details-del" onClick={() => openEditModal(user)}>Промени</button>
+                                <button className="btn-edit-details-del" onClick={() => handleDelete(user._id)} style={{ backgroundColor: "#4B4B4", border: "2px solid #FF3A3A", color: "white" }}>Премахни</button>
                             </td>
                         </tr>
                     ))}
@@ -142,9 +142,12 @@ const UsersPage = () => {
             {isDetailsModalOpen && (
                 <div className="modal">
                     <div className="modal-content">
-                        <h2><b>User Details</b></h2>
-                        <p className=""><strong>Email:</strong> {selectedUser?.email}</p>
-                        <button className="btn-del-1" onClick={closeModal}>Close</button>
+                        <h2><b>Детайли</b></h2>
+                        <p className=""><strong>Имейл:</strong> {selectedUser?.email}</p>
+                        <div className="btn-container">
+  <button className="btn-del-1" onClick={closeModal}>Затвори</button>
+</div>
+
                     </div>
                 </div>
             )}
@@ -153,10 +156,10 @@ const UsersPage = () => {
             {isEditModalOpen && (
                 <div className="modal">
                     <div className="modal-content">
-                        <h2><b>Edit User</b></h2>
+                        <h2><b>Промени</b></h2>
                         <form onSubmit={handleEditSubmit}>
                             <div>
-                                <label>Email:</label>
+                                <label>Имейл:</label>
                                 <input className="pole-input"
                                     type="email"
                                     value={email}
@@ -165,16 +168,16 @@ const UsersPage = () => {
                                 />
                             </div>
                             <div>
-                                <label>New Password (leave blank to keep current password):</label>
+                                <label>Нова парола (остави празно, за да запазиш старата):</label>
                                 <input className="pole-input"
                                     type="password"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
                             </div>
-                            <button className="btn-add-crud-1" type="submit">Update User</button>
+                            <button className="btn-add-crud-1" type="submit">Промени</button>
                         </form>
-                        <button className="btn-del-1" onClick={closeModal}>Cancel</button>
+                        <button className="btn-del-1" onClick={closeModal}>Затвори</button>
                     </div>
                 </div>
             )}
@@ -183,15 +186,15 @@ const UsersPage = () => {
             {isAddModalOpen && (
                 <div className="modal">
                     <div className="modal-content">
-                        <h2>Add New User</h2>
+                        <h2>Добави потребител</h2>
                         <form onSubmit={handleAddSubmit}>
-                            <label>Email:</label>
+                            <label>Имейл:</label>
                             <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-                            <label>Password:</label>
+                            <label>Парола:</label>
                             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-                            <button className="btn-add-crud-1" type="submit">Add User</button>
+                            <button className="btn-add-crud-1" type="submit">Добави</button>
                         </form>
-                        <button className="btn-del-1" onClick={() => setIsAddModalOpen(false)}>Cancel</button>
+                        <button className="btn-del-1" onClick={() => setIsAddModalOpen(false)}>Затвори</button>
                     </div>
                 </div>
             )}

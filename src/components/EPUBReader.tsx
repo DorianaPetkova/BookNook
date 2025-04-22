@@ -21,8 +21,28 @@ const EPUBReader = () => {
         Toggle
       </button>
       <ReactReader
-        url="/epubs/alice.epub"
-        title="Alice in Wonderland"
+        url="/epubs/Dimityr_Peev_-_Alibi_-_626-b.epub"
+        title="Алиби"
+        location={location}
+        locationChanged={setLocation}
+        getRendition={(r) => {
+          rendition.current = r;
+          r.themes.fontSize(largeText ? "140%" : "100%");
+        }}
+      />
+      <ReactReader
+        url="/epubs/Ljuben_Dilov_-_Atomnijat_chovek_-_4108-b.epub"
+        title="Атомният човек"
+        location={location}
+        locationChanged={setLocation}
+        getRendition={(r) => {
+          rendition.current = r;
+          r.themes.fontSize(largeText ? "140%" : "100%");
+        }}
+      />
+      <ReactReader
+        url="/epubs/Vladimir_Zelengorov_-_Snezhnijat_chovek_-_11911-b.epub"
+        title="Снежният човек"
         location={location}
         locationChanged={setLocation}
         getRendition={(r) => {

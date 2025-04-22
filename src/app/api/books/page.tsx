@@ -62,7 +62,7 @@ const BooksPage = () => {
         setEpubUrl('');
         setCoverImageUrl('');
         setPublishDate('');
-        setLanguage('en');
+        setLanguage('bg');
         setIsAddModalOpen(true);
     };
 
@@ -87,7 +87,7 @@ const BooksPage = () => {
 
         const data = await res.json();
         if (res.ok) {
-            alert('Book updated successfully!');
+            alert('Успешна операция!');
             closeModal();  
             setBooks(books.map(book => book._id === selectedBook._id ? data.updatedBook : book));
         } else {
@@ -122,43 +122,43 @@ const BooksPage = () => {
             const data = await res.json();
     
             if (res.ok) {
-                alert("Book added successfully!");
+                alert("Успешна операция!");
                 setIsAddModalOpen(false);
                 setBooks([...books, data.book]); 
             } else {
-                alert("Failed to add book: " + (data.error || "Unknown error"));
+                alert("Грешка! " + (data.error || "Unknown error"));
             }
         } catch (error) {
-            console.error("Error adding book:", error);
-            alert("An unexpected error occurred.");
+            console.error("Грешка", error);
+            alert("Грешка.");
         }
     };
     
 
     const handleDelete = async (id: string) => {
-        if (!confirm("Are you sure you want to delete this book?")) return;
+        if (!confirm("Сигурни ли сте, че искате да премахнете книгата?")) return;
 
         const res = await fetch(`/api/books?id=${id}`, { method: 'DELETE' });
 
         if (res.ok) {
-            alert('Book deleted successfully!');
+            alert('Успешна операция!');
             setBooks(books.filter(book => book._id !== id));
         } else {
-            alert('Failed to delete book');
+            alert('Грешка');
         }
     };
 
     return (
         <div className="container-table">
-            <h1 className="books-table">Books List <button className="btn-crud" onClick={openAddModal}>Add New Book</button></h1>
+            <h1 className="books-table">Книги <button className="btn-crud" onClick={openAddModal}>Добави книга</button></h1>
             
 
             <table className='table'>
                 <thead>
                     <tr>
-                        <th>Title</th>
-                        <th>Author</th>
-                        <th>Actions</th>
+                        <th>Заглавие</th>
+                        <th>Автор</th>
+                        <th>Опции</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -167,9 +167,9 @@ const BooksPage = () => {
                             <td>{book.title}</td>
                             <td>{book.author}</td>
                             <td>
-                                <button className="btn-edit-details-del" onClick={() => openDetailsModal(book)}>Details</button>
-                                <button className="btn-edit-details-del" onClick={() => openEditModal(book)}>Edit</button>
-                                <button className="btn-edit-details-del" onClick={() => handleDelete(book._id)} style={{ backgroundColor: "#4B4B4C", border: "3px solid #FF3A3A", color: "white" }}>Delete</button>
+                                <button className="btn-edit-details-del" onClick={() => openDetailsModal(book)}>Детайли</button>
+                                <button className="btn-edit-details-del" onClick={() => openEditModal(book)}>Промени</button>
+                                <button className="btn-edit-details-del" onClick={() => handleDelete(book._id)} style={{ backgroundColor: "#4B4B4C", border: "3px solid #FF3A3A", color: "white" }}>Премахни</button>
                             </td>
                         </tr>
                     ))}
@@ -180,13 +180,13 @@ const BooksPage = () => {
                 <div className="modal">
                     <div className="modal-content">
                         <h2>{selectedBook?.title}</h2>
-                        <p><strong>Author:</strong> {selectedBook?.author}</p>
-                        <p><strong>Description:</strong> {selectedBook?.description}</p>
-                        <p><strong>Pages:</strong> {selectedBook?.pageCount}</p>
-                        <p><strong>Genres:</strong> {selectedBook?.genres.join(", ")}</p>
-                        <p><strong>Language:</strong> {selectedBook?.language}</p>
+                        <p><strong>Автор:</strong> {selectedBook?.author}</p>
+                        <p><strong>Описание:</strong> {selectedBook?.description}</p>
+                        <p><strong>Страници:</strong> {selectedBook?.pageCount}</p>
+                        <p><strong>Жанр:</strong> {selectedBook?.genres.join(", ")}</p>
+                        <p><strong>Език:</strong> {selectedBook?.language}</p>
 
-                        <button className="btn-del-1" onClick={closeModal}>Close</button>
+                        <button className="btn-del-1" onClick={closeModal}>Затвори</button>
                     </div>
                 </div>
             )}
@@ -195,10 +195,10 @@ const BooksPage = () => {
             {isEditModalOpen && (
                 <div className="modal">
                     <div className="modal-content">
-                        <h2><b>Edit</b></h2>
+                        <h2><b>Промени</b></h2>
                         <form onSubmit={handleEditSubmit}>
                             <div>
-                                <label>Title:</label>
+                                <label>Заглавие:</label>
                                 <input className="pole-input"
                                     type="text"
                                     value={title}
@@ -206,7 +206,7 @@ const BooksPage = () => {
                                 />
                             </div>
                             <div>
-                                <label>Author:</label>
+                                <label>Автор:</label>
                                 <input className="pole-input"
                                     type="text"
                                     value={author}
@@ -214,14 +214,14 @@ const BooksPage = () => {
                                 />
                             </div>
                             <div>
-                                <label>Description:</label>
+                                <label>Описание:</label>
                                 <textarea className="pole-input"
                                     value={description}
                                     onChange={(e) => setDescription(e.target.value)}
                                 />
                             </div>
                             <div>
-                                <label>Page Count:</label>
+                                <label>Страници</label>
                                 <input className="pole-input"
                                     type="number"
                                     value={pageCount}
@@ -229,16 +229,16 @@ const BooksPage = () => {
                                 />
                             </div>
                             <div>
-                                <label>Genres:</label>
+                                <label>Жанр:</label>
                                 <input className="pole-input"
                                     type="text"
                                     value={genres.join(", ")}
                                     onChange={(e) => setGenres(e.target.value.split(",").map((genre) => genre.trim()))}
                                 />
                             </div>
-                            <button className="btn-add-crud-1" type="submit">Update</button>
+                            <button className="btn-add-crud-1" type="submit">Промени</button>
                         </form>
-                        <button className="btn-del-1" onClick={closeModal}>Cancel</button>
+                        <button className="btn-del-1" onClick={closeModal}>Затвори</button>
                     </div>
                 </div>
             )}
@@ -249,28 +249,28 @@ const BooksPage = () => {
 {isAddModalOpen && (
     <div className="modal">
         <div className="modal-content">
-            <h2>Add New Book</h2>
+            <h2>Добави книга</h2>
             <form onSubmit={handleAddSubmit}>
-                <label>Title:</label>
+                <label>Заглавие:</label>
                 <input className="pole-input" type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
                 <br/>
-                <label>Author:</label>
+                <label>Автор:</label>
                 <input className="pole-input" type="text" value={author} onChange={(e) => setAuthor(e.target.value)} required />
-                <br/><label>Description:</label>
+                <br/><label>Описание:</label>
                 <textarea value={description} onChange={(e) => setDescription(e.target.value)} required />
-                <br/><label>Page Count:</label>
+                <br/><label>Страници:</label>
                 <input className="pole-input" type="number" value={pageCount} onChange={(e) => setPageCount(Number(e.target.value))} required />
-                <br/><label>Genres (comma-separated):</label>
+                <br/><label>Жанр (със запетаи):</label>
                 <input className="pole-input" type="text" value={genres.join(", ")} onChange={(e) => setGenres(e.target.value.split(",").map(g => g.trim()))} required />
                 <br/><label>Epub URL:</label>
                 <input className="pole-input" type="text" value={epubUrl} onChange={(e) => setEpubUrl(e.target.value)} required />
-                <br/><label>Cover Image URL:</label>
+                <br/><label>Корица URL:</label>
                 <input className="pole-input" type="text" value={coverImageUrl} onChange={(e) => setCoverImageUrl(e.target.value)} />
-                <br/><label>Publish Date:</label>
+                <br/><label>Дата на издаване:</label>
                 <input className="pole-input" type="date" value={publishDate} onChange={(e) => setPublishDate(e.target.value)} required />
-                <br/><label>Language:</label>
+                <br/><label>Език:</label>
                 <input className="pole-input" type="text" value={language} onChange={(e) => setLanguage(e.target.value)} required />
-                <button className="btn-add-crud-1" type="submit">Add Book</button>
+                <button className="btn-add-crud-1" type="submit">Добави книга</button>
             </form>
             <button className="btn-del-1" onClick={() => setIsAddModalOpen(false)}>Cancel</button>
         </div>

@@ -52,7 +52,7 @@ const Login = () => {
   
 
   if (sessionStatus === "loading") {
-    return <h1>Loading...</h1>;
+    return <h1>Зареждане...</h1>;
   }
 
   return (
@@ -62,7 +62,7 @@ const Login = () => {
         <br />
         <div className="bg-[#212121] p-8 rounded shadow-md w-96">
           
-          <h1 className="text-4xl text-center font-semibold mb-8 text-white ">Login</h1>
+          <h1 className="text-4xl text-center font-semibold mb-8 text-white ">Вход</h1>
           <form onSubmit={handleSubmit}>
           <input
           type="text"
@@ -82,7 +82,7 @@ const Login = () => {
               className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
             >
               {" "}
-              Sign In
+              Вход
             </button>
             <p className="text-red-600 text-[16px] mb-4">{error && error}</p>
           </form>
@@ -92,7 +92,7 @@ const Login = () => {
             className="block text-center text-blue-500 hover:underline mt-2"
             href="/register"
           >
-            Register Here
+            Регистрирай се тук
           </Link>
         </div>
       </div>

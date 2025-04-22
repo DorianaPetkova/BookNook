@@ -13,9 +13,9 @@ export default function Home() {
         {/* Text Section */}
         <div className="w-1/2">
           <h2 className="text-first-page">
-            Discover a world of stories with <b>BookNook</b>, the ultimate site for book lovers. 
-            Read anytime, anywhere, and dive into captivating tales at your own pace. 
-            Start your next adventure today!
+          Открийте свят от истории с <b>BookNook</b>, най-доброто място за любителите на книги.
+Четете по всяко време, навсякъде и се потопете в завладяващи разкази със собственото си темпо.
+Започнете следващото си приключение още днес!
           </h2>
         </div>
         
@@ -38,20 +38,20 @@ export default function Home() {
         {/* Text Section */}
         <div className="w-1/2">
           <h2 className="text-first-page">
-          <h2 className="features"><b>Features:</b></h2>
+          <h2 className="features"><b>Функционалност:</b></h2>
           
       <ul>
         
-        <li>1. View different books</li>
-        <li>2. Create and log in with an individual account</li>
-        <li>3. Toggle light and dark theme</li>
-        <li>4. CRUD for both users and books</li>
+        <li>1. Разглеждане на книги</li>
+        <li>2. Създаване и влизане с акаунт</li>
+        <li>3. Тъмна и светла тема</li>
+        <li>4. CRUD заявки за книги и потребители</li>
        
         <ul className="ml-6 list-disc">
-          <li>Add books/users</li>
-          <li>Edit books/users</li>
-          <li>Delete books/users</li>
-          <li>Hashing for passwords</li>
+          <li>Добавене на потребители/книги</li>
+          <li>Проманя на потребители/книги</li>
+          <li>Изтриване на потребители/книги</li>
+          <li>Хеширане на пароли</li>
         </ul>
       </ul>
           </h2>

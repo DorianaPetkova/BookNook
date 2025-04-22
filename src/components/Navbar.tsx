@@ -29,13 +29,20 @@ const Navbar = () => {
         <div className="flex items-center space-x-6">
         
           <Link href="/dashboard">
-            <li className="text-lg">Books</li>
+            <li className="text-lg">Книги</li>
           </Link>
 
           {/* crud for admin*/}
           {session?.user?.email === adminEmail && (
             <Link href="/crud">
               <li className="text-lg">Crud</li>
+            </Link>
+          )}
+
+          {/* stattistics for admin*/}
+          {session?.user?.email === adminEmail && (
+            <Link href="/statistics">
+              <li className="text-lg">Stats</li>
             </Link>
           )}
 
@@ -46,10 +53,10 @@ const Navbar = () => {
           {!session ? (
             <>
               <Link href="/login">
-                <li className="text-lg">Login</li>
+                <li className="text-lg">Влизане</li>
               </Link>
               <Link href="/register">
-                <li className="text-lg">Register</li>
+                <li className="text-lg">Регистрация</li>
               </Link>
             </>
           ) : (

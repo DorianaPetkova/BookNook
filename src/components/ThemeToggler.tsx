@@ -23,13 +23,13 @@ const ThemeToggler = () => {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem onClick={() => setTheme("light")}>
-          Light
+          Светла
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme("dark")}>
-          Dark
+          Тъмна
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme("system")}>
-          System
+          По подразбиране
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

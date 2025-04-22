@@ -23,12 +23,12 @@ export default function Home() {
   }, [session, status, router]);
 
   if (status === "loading") {
-    return <div>Loading...</div>; 
+    return <div>Зареждане...</div>; 
   }
 
   return (
     <main className="tables-crud">
-      <h1 >Manage Database</h1>
+      <h1 >Управлявай база данни</h1>
       <BooksPage />
       <UsersPage />
     </main>
